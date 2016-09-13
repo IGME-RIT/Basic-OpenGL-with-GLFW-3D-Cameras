@@ -8,6 +8,7 @@ description: Use a 3d camera to move objects into view.
 language: C++
 tags:
   - Graphics
+  - Math
 extra_resources:
 connections:
   - series: Basic OpenGL with GLFW
