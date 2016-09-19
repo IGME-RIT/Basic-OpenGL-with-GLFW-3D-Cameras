@@ -194,16 +194,22 @@ int main(int argc, char **argv)
             break;
         }
 
+        // Calculate delta time.
+        float dt = glfwGetTime();
+        // Reset the timer.
+        glfwSetTime(0);
+
+
         // Get the distance from the center of the screen that the mouse has moved
         glm::vec2 mouseMovement = mousePosition - (viewportDimensions / 2.0f);
 
         // Calculate the horizontal view angle
         float yaw = cameraPosition.Rotation().y;
-        yaw += mouseMovement.x * .001f;
+        yaw += (int)mouseMovement.x * .001f;
 
         // Calculate the vertical view angle
         float pitch = cameraPosition.Rotation().x;
-        pitch -= mouseMovement.y * .001f;
+        pitch -= (int)mouseMovement.y * .001f;
 
         // Clamp the camera from looking up over 90 degrees.
         float halfpi = 3.1416 / 2.f;
@@ -220,21 +226,21 @@ int main(int argc, char **argv)
 
         // Here we get some input, and use it to move the camera
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            cameraPosition.Translate(cameraPosition.GetForward() * .005f);
+            cameraPosition.Translate(cameraPosition.GetForward() * 5.0f * dt);
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            cameraPosition.Translate(cameraPosition.GetRight() * -.005f);
+            cameraPosition.Translate(cameraPosition.GetRight() * -5.0f * dt);
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            cameraPosition.Translate(cameraPosition.GetForward() * -.005f);
+            cameraPosition.Translate(cameraPosition.GetForward() * -5.0f * dt);
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            cameraPosition.Translate(cameraPosition.GetRight() * .005f);
+            cameraPosition.Translate(cameraPosition.GetRight() * 5.0f * dt);
         }
 
 
         // rotate square
-        transform.RotateY(.0002f);
+        transform.RotateY(1.0f * dt);
 
 
 
